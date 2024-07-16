@@ -1,93 +1,109 @@
-# mesProject
+### 뉴스 수집 및 요약 시스템 기능 정의서
 
+---
 
+#### 프로젝트 개요
+**프로젝트 이름:** 뉴스 수집 및 요약 시스템  
+**목표:** 사용자는 관심 주제를 설정하고, 시스템은 주기적으로 뉴스를 수집하여 OpenAI API를 사용해 간단하게 요약된 내용을 제공합니다. JWT를 사용하여 사용자 인증 및 인가를 처리합니다.
 
-## Getting started
+---
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+#### 주요 기능
+1. **사용자 인증 및 인가**
+   - **회원가입**
+   - **로그인**
+   - **로그아웃**
+   - **JWT 발급 및 검증**
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+2. **뉴스 관리**
+   - **뉴스 수집**
+     - 외부 뉴스 API를 사용하여 주기적으로 뉴스 수집
+   - **뉴스 CRUD**
+     - 뉴스 목록 조회
+     - 뉴스 추가
+     - 뉴스 수정
+     - 뉴스 삭제
 
-## Add your files
+3. **뉴스 요약**
+   - **뉴스 요약 생성**
+     - 수집된 뉴스를 OpenAI API를 사용하여 요약
+   - **요약된 뉴스 조회**
+     - 사용자에게 요약된 뉴스 제공
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+---
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/codehows/mesProject.git
-git branch -M main
-git push -uf origin main
-```
+#### 상세 기능 정의
 
-## Integrate with your tools
+##### 1. 사용자 인증 및 인가
 
-- [ ] [Set up project integrations](https://gitlab.com/codehows/mesProject/-/settings/integrations)
+**회원가입**
+- **설명:** 사용자가 계정을 생성하는 기능.
+- **입력:** 사용자명, 이메일, 비밀번호
+- **처리:** 사용자 정보를 데이터베이스에 저장하고 JWT 발급
+- **출력:** 성공 메시지, JWT 토큰
 
-## Collaborate with your team
+**로그인**
+- **설명:** 사용자가 시스템에 로그인하는 기능.
+- **입력:** 이메일, 비밀번호
+- **처리:** 사용자 인증 후 JWT 발급
+- **출력:** 성공 메시지, JWT 토큰
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+**로그아웃**
+- **설명:** 사용자가 시스템에서 로그아웃하는 기능.
+- **입력:** JWT 토큰
+- **처리:** 서버 측에서 토큰 무효화
+- **출력:** 성공 메시지
 
-## Test and Deploy
+**JWT 발급 및 검증**
+- **설명:** JWT를 발급하고 유효성을 검증하는 기능.
+- **입력:** 사용자 인증 정보
+- **처리:** JWT 생성 및 검증 로직
+- **출력:** JWT 토큰, 인증 결과
 
-Use the built-in continuous integration in GitLab.
+##### 2. 뉴스 관리
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+**뉴스 수집**
+- **설명:** 외부 뉴스 API를 사용하여 주기적으로 뉴스를 수집하는 기능.
+- **입력:** 사용자 관심 주제
+- **처리:** 외부 API를 호출하여 뉴스 데이터 수집 후 데이터베이스에 저장
+- **출력:** 수집된 뉴스 데이터
 
-***
+**뉴스 목록 조회**
+- **설명:** 사용자가 수집된 뉴스 목록을 조회하는 기능.
+- **입력:** 페이지 번호, 검색어 (옵션)
+- **처리:** 데이터베이스에서 뉴스 데이터를 조회
+- **출력:** 뉴스 목록
 
-# Editing this README
+**뉴스 추가**
+- **설명:** 사용자가 뉴스를 추가하는 기능.
+- **입력:** 뉴스 제목, 내용, 링크 등
+- **처리:** 입력된 뉴스 데이터를 데이터베이스에 저장
+- **출력:** 성공 메시지
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+**뉴스 수정**
+- **설명:** 사용자가 뉴스를 수정하는 기능.
+- **입력:** 뉴스 ID, 수정할 제목, 내용 등
+- **처리:** 해당 뉴스 데이터를 데이터베이스에서 수정
+- **출력:** 성공 메시지
 
-## Suggestions for a good README
+**뉴스 삭제**
+- **설명:** 사용자가 뉴스를 삭제하는 기능.
+- **입력:** 뉴스 ID
+- **처리:** 해당 뉴스 데이터를 데이터베이스에서 삭제
+- **출력:** 성공 메시지
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+##### 3. 뉴스 요약
 
-## Name
-Choose a self-explaining name for your project.
+**뉴스 요약 생성**
+- **설명:** 수집된 뉴스를 OpenAI API를 사용하여 요약하는 기능.
+- **입력:** 뉴스 내용
+- **처리:** OpenAI API를 호출하여 요약된 내용 생성 후 데이터베이스에 저장
+- **출력:** 요약된 뉴스 내용
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+**요약된 뉴스 조회**
+- **설명:** 사용자가 요약된 뉴스 목록을 조회하는 기능.
+- **입력:** 페이지 번호, 검색어 (옵션)
+- **처리:** 데이터베이스에서 요약된 뉴스 데이터를 조회
+- **출력:** 요약된 뉴스 목록
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+---
