@@ -13,6 +13,9 @@ spring:
         show_sql: true
         format_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
+   #jwt 암호화 키
+  jwt:
+    secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb

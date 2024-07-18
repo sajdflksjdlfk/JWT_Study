@@ -15,7 +15,6 @@ public class CustomUserDetails implements UserDetails {
 
     private final User user;
 
-
     //role 값을 반환하는 매서드
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -38,7 +37,7 @@ public class CustomUserDetails implements UserDetails {
     //pw값을 반환하는 매서드    
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     //id값을 반환하는 매서드

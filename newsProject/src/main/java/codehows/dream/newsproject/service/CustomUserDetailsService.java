@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         //에러 메시지를 따로 확인할 수는 없음
         throw new UsernameNotFoundException("사용자를 찾을 수 없습니다");
 //        return null;
-        //null을 리턴하더라도 매서드를 호출한 곳에서 null값을 처리할 것임.
+        //null을 리턴하더라도 매서드를 호출한 곳(DaoAuthenticationProvider)에서 null값을 처리할 것임.
         //여기서 어차피 UsernameNotFoundException예외를 던질 것이기 때문에 결국은 같은 과정임
     }
 }

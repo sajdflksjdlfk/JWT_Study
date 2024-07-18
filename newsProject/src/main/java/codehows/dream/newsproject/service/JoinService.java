@@ -17,11 +17,12 @@ public class JoinService {
 
 
 
-    public void joinProcess(JoinDto joinDto){
+    public void joinProcess(JoinDto joinDto) throws IllegalArgumentException{
         String username = joinDto.getUsername();
         String password = joinDto.getPassword();
 
         Boolean isExist = userRepository.existsByUserName(username);
+        System.out.println("isExist = " + isExist);
 
         if(isExist){
             throw new IllegalArgumentException("중복된 회원입니다");
@@ -32,6 +33,7 @@ public class JoinService {
             data.setUserName(username);
             data.setPassword(bCryptPasswordEncoder.encode(password));
             data.setRoles(Roles.ROLE_ADMIN);
+            userRepository.save(data);
         }
     }
 
