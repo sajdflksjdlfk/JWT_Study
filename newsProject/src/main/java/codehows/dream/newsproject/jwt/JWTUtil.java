@@ -1,5 +1,6 @@
 package codehows.dream.newsproject.jwt;
 
+import codehows.dream.newsproject.constants.Roles;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+//JWTUtil은 JWT를 생성하고, JWT에서 정보를 추출하며, JWT가 유효한지 확인하는 메서드를 제공합니다.
 @Component
 public class JWTUtil {
 
@@ -19,15 +21,16 @@ public class JWTUtil {
         this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 
-    //1.username을 검증하는 매서드
+    //1.username을 검증하는 매서드 - jwt에서 username을 추출하는 매서드
     public String getUsername(String token) {
 
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("username", String.class);
     }
     //2.roll 검증하는 매서드
-    public String getRole(String token) {
+    public Roles getRole(String token) {
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
+        String role = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
+        return Roles.valueOf(role.toUpperCase()); // 문자열을 Role enum 타입으로 변환
     }
 
     //3.토큰의 만료 상태롤 확인하는 매서드
