@@ -39,11 +39,20 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
+    //4. 카테고리(refresh, access)를 확인하는 매서드
+    public String getCategory(String token) {
+
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("category", String.class);
+    }
+
+
+
     //토큰을 생성하는 매서드
     //로그인이 성공했을 때, successfulHandler를 통해 username,role, expired를 전달받아 토큰을 생성해주는 토큰 생성 매서드
-    public String createJwt(String username, String role, Long expiredMs) {
+    public String createJwt(String category, String username, String role, Long expiredMs) {
 
         return Jwts.builder()
+                .claim("category", category)
                 .claim("username", username)      //claim에 키,값을 넣어줄 수 있음, 토큰의 페이로드에 해당하는 부분
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))       //토큰 발행 시간(현재시간)
