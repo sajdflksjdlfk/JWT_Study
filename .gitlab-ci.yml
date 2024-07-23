@@ -1,4 +1,4 @@
-image: gradle:alpine
+image: gradle:jdk17
 
 before_script:
   - cd newsProject  # newsProject 디렉토리로 이동
